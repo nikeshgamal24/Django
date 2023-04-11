@@ -1,0 +1,42 @@
+<!-- To make sure we have our base template we should load the  base template -->
+{% extends 'food/base.html'%}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food</title>
+
+</head>
+
+<body>
+    {% block body%}
+    <!-- Home page template -->
+    {% for item in item_list%}
+    <div class="d-flex justify-content-center my-2">
+        <div class="w-50 border-black">
+            <img src=" {{item.item_image}} " class="rounded mx-auto d-block " alt="{{item.item_name}} " width="40%">
+        </div>
+        <div class="w-40">
+            <div>
+                <p class="fs-5 text-success-emphasis">{{item.item_name}}</p>
+            </div>
+            <div>
+                <p class="fs-5 text-success-emphasis">{{item.item_description}}</p>
+            </div>
+            <div>
+                <p class="fs-5 text-success-emphasis">{{item.item_price}}</p>
+            </div>
+            <a class="btn btn-primary " href="{% url 'food:detail' item.id %}">View Detail</a>
+        </div>
+    </div>
+    {% endfor %}
+    <!---->
+    {% endblock %}
+</body>
+
+</html>
