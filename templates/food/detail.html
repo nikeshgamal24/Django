@@ -1,9 +1,13 @@
 {% extends 'food/base.html' %}
+
+
+<!-- 'item' is passed to this document as a context so we can use the item to get the item necessary info to use in different section for creating a dynamic feature-->
+
 <!-- detail block template -->
 {% block body %}
 <div class="d-flex justify-content-center my-3">
     <div class="w-50">
-        <img src=" {{item.item_image}} " class="rounded mx-auto d-block " alt="{{item.item_name}} " width="55%">
+        <img src=" {{item.item_image}} " class="rounded mx-auto d-block " alt="{{item.item_name}} " width="85%">
     </div>
     <div class="w-40 pr-4">
         <div>
@@ -16,6 +20,9 @@
         <div>
             <p class="fs-3 fw-semibold text-primary-emphasis"><span class="fs-4 fw-normal text-danger-emphasis"> Price: </span> {{item.item_price}}</p>
         </div>
+        <a class="btn btn-primary my-2" href="{% url 'food:update_item' item.id%}"> Update Item</a>
+        <br>
+        <a class="btn btn-primary my-2" href="{% url 'food:delete_item' item.id%}"> Delete Item</a>
     </div>
 </div>
 {% endblock %}
