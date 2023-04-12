@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Item
+from .forms import ItemForm
 # from django.template import loader
 
 # Create your views here.
@@ -36,3 +37,38 @@ def detail(request,item_id):
     
     return render(request,'food/detail.html',context)
     # return HttpResponse("This is item no: %s" %item_id)
+    
+#-------------View for creating of item----------------    
+def create_item(request):
+    form = ItemForm (request.POST or None)
+    
+    
+    if form.is_valid():
+        form.save()
+        return redirect('food:index')
+    
+    return render(request,'food/item_form.html',{'form':form})
+
+#-------------View for upadating of the item---------------- 
+def update_item(request,id):
+    item = Item.objects.get(id=id)
+    
+    #we pass the item as a value to the instance argument so that we get the form to edit the form contains the values in the respective field
+    form = ItemForm(request.POST or None, instance = item)
+    
+    if form.is_valid():
+        form.save()
+        return redirect('food:index')
+    
+    return render(request,'food/item_form.html',{"item":item, "form":form})
+
+
+#-------------View for delete of the item---------------- 
+def delete_item(request,id):
+    item = Item.objects.get(id=id)
+    
+    if request.method == 'POST':
+        item.delete()
+        return redirect('food:index')
+    
+    return render(request,'food/item-delete.html',{"item":item})

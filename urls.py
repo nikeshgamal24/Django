@@ -20,4 +20,13 @@ urlpatterns = [
     
     #food/item/
     path('item/',views.item,name = 'item'),
+    
+    #path for create_item i.e. food/add
+    path('add',views.create_item, name = 'create_item'),
+    
+    # path for updating the item i.e. food/edit/1
+    path('update/<int:id>',views.update_item, name = 'update_item'),
+    
+    #path for deleting the item
+    path('delete/<int:id>',views.delete_item, name = 'delete_item'),
 ]
